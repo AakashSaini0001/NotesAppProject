@@ -1,0 +1,211 @@
+Discoveries:
+use "link" in go to register page from login page.
+
+how to save the input data in database:
+  to save the input from a form first decalre a variable in usestate hoock. then the hoock variable will be used to save the value 
+  and the setvariable is a function which will be called when ever the value is changing and we want to save the cahngning value:
+    In the input element we will be using the onChange  ={(e)=>setvariable(e.target.value)};
+  Then use the attribute onsubmit in the submit button and assign it a call back handelSubmit();
+  Then in the component itself declare the function handelSubmit:
+    const ahndelSubmit(e)=>{
+      e.preventdefalut();
+      axios.post('http://localhost:portnumber/register',{variable1, variable2, ...}).then(result => console.log(result));.catch(err=>console.log(err));
+    }
+
+  Connect the mongodb server by using the mongoURI in the mongodb.connect("");
+  as we have used the https://localhost:3001/register in the handelsubmit then we have to decaler a post request in the server.js with:
+    app.post("/register", (req, res)=>{
+      //create a new instance of a model in a post request and then save the info in it:
+      Modelname.create(req.body).then(modelobject => res.json(employee)).catch(err=>console.log(err));
+    })
+
+
+NavLink and Link used in button:
+  In submit Button dont use Navlink or Link as they will redirest tothe ohter component without handeling te submit request, 
+  insted use button with submit type.
+
+3. React's State and Event Handling
+  Learning: We fixed several common mistakes in React form handling.
+  Takeaway:
+    Controlled Components: Inputs should be "controlled," meaning their value is tied to a state variable (value={formData.email}) 
+    and their changes are handled by a function (onChange={handleChange}).
+    Infinite Loops: Calling a state-setting function directly within the render cycle (e.g., onChange={setFormData(...)}) causes an 
+    infinite re-render loop, freezing the application. You must pass a function (onChange={(e) => ...}) instead.
+
+4. React Router and Navigation
+  Learning: We distinguished between different React Router components and their intended uses.
+  Takeaway:
+    <Link> and <NavLink>: These are for client-side navigation between pages. They should not be used for form submission,
+    as they bypass form handlers.
+    <button type="submit">: This is the correct element to trigger a form's onSubmit handler.
+    useNavigate: This is the correct hook for programmatically redirecting a user after a successful action 
+    (e.g., after a login or registration).
+
+
+Software Requirements Specification (SRS)
+========================================
+Project Title: NoteGenius – A Smart Note-Taking App
+Tech Stack: React.js, Express.js, MongoDB, Node.js, TailwindCSS
+Phase 1 Focus: Authentication, Notes CRUD, Tagging, Search, Responsive UI
+
+1. Introduction
+---------------
+1.1 Objective
+To build a user-friendly, visually modern, and secure note-taking web application where users can:
+- Create, edit, delete, view, and categorize notes
+- Use a clean card-style dashboard
+- View notes with tags and dates
+- Share or download notes
+- Authenticate via JWT
+- Later, integrate AI to summarize notes
+
+1.2 Scope
+- Frontend: React + TailwindCSS for a modern, responsive UI
+- Backend: Node.js + Express.js for REST APIs
+- Database: MongoDB for flexible note and user schema
+- Auth: JWT + bcrypt-based login/signup
+- Deployment: Render/Vercel (Client) and Cyclic/Render (API)
+
+2. Functional Requirements
+--------------------------
+2.1 User Authentication
+- Sign up with name, email, password
+- Login/Logout functionality
+- Hash password (bcrypt), JWT token-based protected routes
+- Auth status persisted (localStorage or Redux store)
+
+2.2 Notes Management (CRUD)
+- Create a new note: title, description, tags, date, pinned, archived
+- Read all notes (sorted by pinned → recent → others)
+- Edit a note from dashboard or detail view
+- Delete note: Soft delete (move to Trash) and permanent delete
+
+2.3 Tags / Labels Support
+- Each note can be tagged (e.g., “Clients”, “Personal”, “Work”)
+- Filter notes by tag/category
+
+2.4 Search & Filter
+- Text-based search on title and content
+- Filter by tag or pinned status
+
+2.5 Note Sharing / Export
+- Generate public view link (optional)
+- Download note as .txt or .pdf
+
+2.6 Note Status Management
+- Pin note to top
+- Archive notes
+- Trash system with recovery & permanent delete
+
+3. Non-Functional Requirements
+------------------------------
+3.1 UI/UX
+- Mobile-first responsive design
+- Dark mode default
+- Styled using TailwindCSS (cards, hover, transitions)
+
+3.2 Security
+- JWT for API access
+- Passwords hashed using bcrypt
+- Route protection on both client and server side
+
+4. System Design Overview
+-------------------------
+4.1 Folder Structure
+
+Backend (/server)
+-----------------
+server/
+├── controllers/
+├── models/
+├── routes/
+├── middleware/
+├── config/
+└── server.js
+
+Frontend (/client)
+------------------
+client/
+├── src/
+│   ├── components/ (Modal, Navbar, NoteCard, Sidebar)
+│   ├── pages/(CreateNote, Dashboard, Login, Settings, Signup, Trash, ViewNote)
+│   └── App.jsx
+├── public/
+└── tailwind.config.js
+
+5. Database Schema (MongoDB)
+----------------------------
+
+User
+----
+{
+  _id,
+  name,
+  email,
+  password (hashed),
+  createdAt
+}
+
+Note
+----
+{
+  _id,
+  userId (ref: User),
+  title,
+  content,
+  tags: [String],
+  pinned: Boolean,
+  archived: Boolean,
+  trashed: Boolean,
+  createdAt,
+  updatedAt
+}
+
+6. UI Pages & Components
+------------------------
+Pages:
+- Login / Signup
+- Dashboard (My Notes)
+- Create / Edit Note
+- Trash / Archived
+- View Note (full-page)
+
+Components:
+- NoteCard (with date, content preview, tags, pin icon, 3-dot menu)
+- Sidebar (with profile + navigation)
+- Navbar (for title + search bar + logout)
+- Modal (for delete confirmation)
+- Toasts (action feedback)
+
+7. API Endpoints
+----------------
+| Method | Endpoint               | Description                  |
+|--------|------------------------|------------------------------|
+| POST   | /api/users/register     | Register a user              |
+| POST   | /api/auth/login        | Login and get token          |
+| GET    | /api/notes             | Get all user notes           |
+| POST   | /api/notes             | Create a new note            |
+| PUT    | /api/notes/:id         | Edit a note                  |
+| DELETE | /api/notes/:id         | Soft delete a note           |
+| GET    | /api/notes/trash       | View trashed notes           |
+| PUT    | /api/notes/:id/restore | Restore from trash           |
+| DELETE | /api/notes/:id/delete  | Permanently delete a note    |
+
+8. Phase 2 Preview: AI Summarization (Planned Later)
+----------------------------------------------------
+- Integrate OpenAI GPT-3.5 or 4 API
+- Add a button: “Summarize Note”
+- Send note content via Axios
+- Display returned summary under the note
+
+9. Milestone Plan
+-----------------
+| Week | Task                                             |
+|------|--------------------------------------------------|
+| 1    | Setup backend + MongoDB + Auth                  |
+| 2    | Add Note CRUD APIs                              |
+| 3    | Build React pages (Login, Dashboard, Create/Edit)|
+| 4    | Integrate Tailwind + make mobile responsive     |
+| 5    | Add Trash, Pin, Archive, Search                 |
+| 6    | Deploy on Render/Vercel                         |
+| 7    | Optional: Add AI summarization using OpenAI     |

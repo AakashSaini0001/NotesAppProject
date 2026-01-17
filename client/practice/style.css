@@ -1,0 +1,42 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    margin: auto;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    box-shadow: inset;
+    background-color: coral;
+    transition: all;
+    /* transition-timing-function: ease-in-out; */
+    transition-timing-function: cubic-bezier;
+    transition-duration: 0.5s;
+    animation: mymove 2s infinite;
+}
+
+.box:hover{
+    /* background-color: aqua; */
+    /* width: 200px; */
+    box-shadow: 2px 2px black;
+    transform: scale(1.5);
+}    
+@keyframes mymove {
+  from {top: 0px;}
+  to {top: 200px;}
+}
