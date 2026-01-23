@@ -40,13 +40,3 @@ cd note-genius
 
 Created the server.js file with nodemon run.
 then created models for the database
-
-Refactor auth into MVC
-
-Add Refresh Tokens
-
-Add Role-based access
-
-Add Protected React Routes
-
-Add Central Axios Instance
