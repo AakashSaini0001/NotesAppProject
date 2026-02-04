@@ -5,7 +5,6 @@ import connectDB from "./config/db.js";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import noteRoutes from "./routes/notes.js";
-import shareRoutes from "./routes/share.js";
 import authMiddleware from "./middleware/auth.js"; // Renamed for clarity
 import mongoose from "mongoose";
 
@@ -29,7 +28,6 @@ app.use(cors({
 // API routes
 app.use("/api/users", authRoutes); // registration and login public
 app.use("/api/notes", authMiddleware, noteRoutes); // notes protected
-app.use("/api/share", shareRoutes); // public share links
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
