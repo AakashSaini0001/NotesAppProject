@@ -8,6 +8,11 @@ const NoteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    shareId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
   },
   { timestamps: true }
 );
