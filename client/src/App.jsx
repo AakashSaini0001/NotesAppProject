@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar.jsx";
 import Navbar from "./components/Navbar.jsx";
 import CreateNote from "./components/CreateNote";
 import ViewNote from "./components/ViewNote";
+import SharedNote from "./components/SharedNote";
 import Settings from "./components/Settings.jsx";
 import Dashboard from "./components/Dashboard";
 import Signup from "./components/Signup.jsx";
@@ -26,6 +27,8 @@ function App() {
           <Route path="/" element={<Profile />} />
           <Route path="/create-note" element={<CreateNote />} />
           <Route path="/view-notes" element={<ViewNote />} />
+          <Route path="/note/:id" element={<ViewNote />} />
+          <Route path="/share/:shareId" element={<SharedNote />} />
           <Route path="/settings" element={<Settings />} />
           {/* <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} /> */}
           <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
