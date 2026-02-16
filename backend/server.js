@@ -21,7 +21,7 @@ mongoose.connect(process.env.mongo_URI)
 // the below line is used to take the json content from teh http headers and helps in making the json content valid and accessible
 // app.use(cors());
 app.use(cors({
-  origin: "*"
+  origin: "*",
   credentials: true
 }));
 
