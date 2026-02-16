@@ -14,7 +14,7 @@ function CreateNote() {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/api/notes', note, {
+      await axios.post('https://notesappproject-ao91.onrender.com/api/notes', note, {
         headers: {
             Authorization: `Bearer ${token}`, // 🔥 FIXED
           },

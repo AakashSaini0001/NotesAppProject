@@ -15,7 +15,7 @@ function Login({ setUser }) {
 
     try {
       // Send login request
-      const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const res = await axios.post('https://notesappproject-ao91.onrender.com/api/users/login', { email, password });
       
       // Assuming the response body contains a token AND user info (like username)
       const { token, user: userData } = res.data; 

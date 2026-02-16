@@ -10,7 +10,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/users/register", {
+      await axios.post("https://notesappproject-ao91.onrender.com/api/users/register", {
         email,
         password,
       });

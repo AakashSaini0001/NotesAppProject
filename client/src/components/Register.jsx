@@ -11,7 +11,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/users/register', {username, email, password});
+      await axios.post('https://notesappproject-ao91.onrender.com/users/register', {username, email, password});
       alert('Registered successfully');
     } catch (err) {
       alert(err.response?.data?.msg || 'Registration failed');

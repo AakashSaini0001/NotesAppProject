@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchNotes = async () => {
         try {
-          const res = await axios.get('http://localhost:5000/api/notes/', {
+          const res = await axios.get('https://notesappproject-ao91.onrender.com/api/notes/', {
             headers: {
               Authorization: 'Bearer ' + localStorage.getItem('token'),
             },
