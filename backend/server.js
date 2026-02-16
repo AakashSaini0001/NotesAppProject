@@ -19,12 +19,13 @@ mongoose.connect(process.env.mongo_URI)
  .catch(err => console.log(err));
 
 // the below line is used to take the json content from teh http headers and helps in making the json content valid and accessible
-app.use(express.json());
 // app.use(cors());
 app.use(cors({
-  origin: "https://your-frontend.vercel.app",
+  origin: "*"
   credentials: true
 }));
+
+app.use(express.json());
 
 // API routes
 app.use("/api/users", authRoutes); // registration and login public
