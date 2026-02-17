@@ -14,7 +14,7 @@ const app = express();
 // Database connection
 connectDB(); // Assuming this function connects to Mongoose
 // A more robust way:
-mongoose.connect(process.env.mongo_URI)
+mongoose.connect(process.env.MONGO_URI)
  .then(() => console.log('MongoDB connected'))
  .catch(err => console.log(err));
 
